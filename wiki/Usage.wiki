@@ -1,4 +1,6 @@
+#summary ruby SlowQueryLogParser.rb path_to.log lock > results.txt
 #labels Phase-Deploy
+
 = Usage =
 
 You will need to have Ruby installed and set up. To download ruby go to [http://www.ruby-lang.org/en/downloads/].
