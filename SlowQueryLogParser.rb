@@ -44,12 +44,14 @@
 #     First version with basic parsing of log file & basic sorting
 # 2009-02-20
 #     Support for multiline queries by Jacob Kjeldahl
+# 2011-06-27
+#     Fix for bug where minimum time and lock always compute to 0 by Benoit Soenen
 #
 # --------------------------------------------------------------------------------
 #
 # MySQL Slow Query Log Parser.
 #
-# Copyright 2007-2009 Lee Kemp
+# Copyright 2007-2011 Lee Kemp
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); 
 # you may not use this file except in compliance with the License. 
@@ -129,8 +131,8 @@ class QueryTotal
     @queries = Array.new
     @max_time = 0
     @max_lock = 0
-    @min_time = 0
-    @min_lock = 0
+    @min_time = -1
+    @min_lock = -1
   end
 
   def addQuery(query)
@@ -143,12 +145,12 @@ class QueryTotal
     if @max_lock < query.getLock then
       @max_lock = query.getLock
     end
-    
-    if @min_time > query.getTime then
+	
+    if @min_time > query.getTime or @min_time == -1 then
        @min_time = query.getTime
      end
 
-     if @min_lock > query.getLock then
+	 if @min_lock > query.getLock or @min_lock == -1 then
        @min_lock = query.getLock
      end
      
