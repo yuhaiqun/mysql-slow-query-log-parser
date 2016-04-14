@@ -1,0 +1,18 @@
+# Usage #
+
+You will need to have Ruby installed and set up. To download ruby go to http://www.ruby-lang.org/en/downloads/.
+
+To run the parser on a command line use
+```
+ruby SlowQueryLogParser.rb path_to.log [options]
+```
+
+# Options #
+
+lock - Order by the amount of time a query locked a table.
+time - Order by the amount of time a query took to run.
+
+To parse your log ordered by the lock time and have the result output to a file (in Linux / OS X) you would use:
+```
+ruby SlowQueryLogParser.rb path_to.log lock > results.txt
+```
